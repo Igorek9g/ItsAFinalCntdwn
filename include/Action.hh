@@ -9,8 +9,6 @@
 
 class Action: public G4VUserActionInitialization{
 public:
-    Action();
-    ~Action();
     virtual void Build() const;
 
 };
