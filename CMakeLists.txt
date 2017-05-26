@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-set(NAME ItsAFinalCntdwn)
+set(NAME Final)
 project(${NAME})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
@@ -19,7 +19,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
-add_executable(${NAME} main.cc ${sources} ${headers} include/Run.hh include/RunAct.hh src/Run.cc src/RunAct.cc include/Mes.hh src/Mes.cc)
+add_executable(${NAME} main.cc ${sources} ${headers})
 target_link_libraries(${NAME} ${Geant4_LIBRARIES})
 
 

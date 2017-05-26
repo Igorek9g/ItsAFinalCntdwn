@@ -4,18 +4,15 @@
 
 #include <Loader.hh>
 #include <Geometry.hh>
-#include <Logger.hh>
 #include <Action.hh>
 
 Loader::Loader(int argc, char **argv) {
 #ifdef G4MULTITHREADED
     runManager = new G4MTRunManager;
     runManager->SetNumberOfThreads(G4Threading::G4GetNumberOfCores());
-    Logger::Info("Geant4 have been run in MT mode");
-    Logger::Info("Number of cores: ",G4Threading::G4GetNumberOfCores());
 #else
     Logger::Info("Geant4 have been run in non-MT mode");
-    runManager = new G4RunManager;
+    runManager = new G4RunManager;`
 #endif
     runManager->SetUserInitialization(new Geometry());
     runManager->SetUserInitialization(new QBBC);
@@ -29,13 +26,11 @@ Loader::Loader(int argc, char **argv) {
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
     if (argc != 1) {
-        Logger::Info("Geant4 have been run in batch mode");
         // batch mode
         G4String command = "/control/execute ";
         G4String fileName = argv[1];
         UImanager->ApplyCommand(command + fileName);
     } else {
-        Logger::Info("Geant4 have been run in interactive mode");
         // interactive mode : define UI session
 #ifdef G4UI_USE
         G4UIExecutive *ui = new G4UIExecutive(argc, argv);
@@ -51,5 +46,6 @@ Loader::Loader(int argc, char **argv) {
 }
 
 Loader::~Loader(){
+    delete visManager;
     delete runManager;
 }
